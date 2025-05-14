@@ -6,6 +6,7 @@
         <item
             android:id="@+id/action_create_journal"
             android:title="@string/menu_journal"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
     </group>
 
@@ -13,14 +14,17 @@
         <item
             android:id="@+id/action_save_file"
             android:title="@string/menu_save_file"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_load_file"
             android:title="@string/menu_load_file"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_edit_file"
             android:title="@string/menu_edit_file"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
     </group>
 
@@ -28,10 +32,12 @@
         <item
             android:id="@+id/action_create_schedule"
             android:title="@string/menu_create_schedule"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_edit_schedule"
             android:title="@string/menu_edit_schedule"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
     </group>
 
@@ -39,10 +45,12 @@
         <item
             android:id="@+id/action_settings"
             android:title="@string/menu_settings"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_load_students"
             android:title="@string/menu_load_students"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
     </group>
 
@@ -50,6 +58,7 @@
         <item
             android:id="@+id/action_share_email"
             android:title="@string/menu_share_email"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
     </group>
 
@@ -57,10 +66,12 @@
         <item
             android:id="@+id/action_search"
             android:title="@string/menu_search"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_about"
             android:title="@string/menu_about"
+            app:actionMenuTextAppearance="@style/ToolbarMenuText"
             app:showAsAction="never" />
     </group>
 
