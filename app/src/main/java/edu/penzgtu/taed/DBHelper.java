@@ -158,26 +158,21 @@ public class DBHelper extends SQLiteOpenHelper {
         int gradeCount = journalCursor.getInt(journalCursor.getColumnIndexOrThrow("grade_count"));
         journalCursor.close();
 
-        // Заголовок журнала
         csv.append("Journal Name,").append(escapeCsv(journalName)).append("\n\n");
 
-        // Получение всех страниц
         Cursor pagesCursor = getPages(journalId);
         while (pagesCursor.moveToNext()) {
             long pageId = pagesCursor.getLong(pagesCursor.getColumnIndexOrThrow("page_id"));
             String pageName = pagesCursor.getString(pagesCursor.getColumnIndexOrThrow("page_name"));
 
-            // Заголовок страницы
             csv.append("Page,").append(escapeCsv(pageName)).append("\n");
             csv.append("Student Number,Student Name");
 
-            // Заголовки оценок
             for (int i = 0; i < gradeCount; i++) {
                 csv.append(",Grade ").append(i + 1);
             }
             csv.append(",Credit,CP,Exam\n");
 
-            // Получение студентов
             Cursor studentsCursor = getStudents(pageId);
             while (studentsCursor.moveToNext()) {
                 long studentId = studentsCursor.getLong(studentsCursor.getColumnIndexOrThrow("student_id"));
@@ -186,7 +181,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 csv.append(studentNumber).append(",").append(escapeCsv(studentName));
 
-                // Получение оценок
                 Cursor gradesCursor = getGrades(studentId);
                 for (int i = 0; i < gradeCount; i++) {
                     String gradeValue = "-";
@@ -197,7 +191,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
                 gradesCursor.close();
 
-                // Получение экзаменов
                 Cursor examsCursor = getExams(studentId);
                 String credit = "-", cp = "-", exam = "-";
                 if (examsCursor.moveToFirst()) {
@@ -240,7 +233,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     pagesData.add(currentPageData);
                     isHeader = true;
                 } else if (isHeader && parts[0].equals("Student Number")) {
-                    gradeCount = parts.length - 5; // Student Number, Student Name, Grades..., Credit, CP, Exam
+                    gradeCount = parts.length - 5;
                     isHeader = false;
                 } else if (currentPageData != null && parts[0].matches("\\d+")) {
                     currentPageData.add(parts);
@@ -253,7 +246,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 return -1;
             }
 
-            // Создание нового журнала
             SQLiteDatabase db = getWritableDatabase();
             db.beginTransaction();
             try {
@@ -310,6 +302,31 @@ public class DBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             return -1;
         }
+    }
+
+    /**
+     * Процедура обработки данных: Выполняет поиск студентов по имени в указанном журнале.
+     * @param query Поисковый запрос.
+     * @param journalId Идентификатор текущего журнала.
+     * @return Список студентов, соответствующих запросу.
+     */
+    public List<SearchResult.StudentData> searchStudentsByName(String query, long journalId) {
+        List<SearchResult.StudentData> results = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT s.student_id, s.student_name, p.page_name " +
+                "FROM students s " +
+                "JOIN pages p ON s.page_id = p.page_id " +
+                "WHERE s.student_name LIKE ? AND p.journal_id = ? " +
+                "ORDER BY s.student_name";
+        Cursor cursor = db.rawQuery(sql, new String[]{"%" + query + "%", String.valueOf(journalId)});
+        while (cursor.moveToNext()) {
+            long studentId = cursor.getLong(cursor.getColumnIndexOrThrow("student_id"));
+            String studentName = cursor.getString(cursor.getColumnIndexOrThrow("student_name"));
+            String pageName = cursor.getString(cursor.getColumnIndexOrThrow("page_name"));
+            results.add(new SearchResult.StudentData(studentId, studentName, pageName));
+        }
+        cursor.close();
+        return results;
     }
 
     private String[] parseCsvLine(String line) {
