@@ -4,20 +4,8 @@
 
     <group android:id="@+id/group_journal">
         <item
-            android:id="@+id/action_journal"
-            android:title="@string/menu_journal"
-            app:showAsAction="never" />
-        <item
             android:id="@+id/action_create_journal"
-            android:title="@string/menu_create_journal"
-            app:showAsAction="never" />
-        <item
-            android:id="@+id/action_open_journal"
-            android:title="@string/menu_open_journal"
-            app:showAsAction="never" />
-        <item
-            android:id="@+id/action_delete_page"
-            android:title="@string/menu_delete_page"
+            android:title="@string/menu_journal"
             app:showAsAction="never" />
     </group>
 
@@ -34,21 +22,9 @@
             android:id="@+id/action_edit_file"
             android:title="@string/menu_edit_file"
             app:showAsAction="never" />
-        <item
-            android:id="@+id/action_add_page_file"
-            android:title="@string/menu_add_page_file"
-            app:showAsAction="never" />
     </group>
 
     <group android:id="@+id/group_edit">
-        <item
-            android:id="@+id/action_edit"
-            android:title="@string/menu_edit"
-            app:showAsAction="never" />
-        <item
-            android:id="@+id/action_create_page"
-            android:title="@string/menu_create_page"
-            app:showAsAction="never" />
         <item
             android:id="@+id/action_create_schedule"
             android:title="@string/menu_create_schedule"
@@ -63,10 +39,6 @@
         <item
             android:id="@+id/action_settings"
             android:title="@string/menu_settings"
-            app:showAsAction="never" />
-        <item
-            android:id="@+id/action_journal_page_settings"
-            android:title="@string/menu_page_settings"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_load_students"
